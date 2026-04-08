@@ -10,7 +10,7 @@ import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPa
 
 const BLOOM_THEATRE_KEY = "postproc_bloom";
 
-export function TheatreBloomEffect() {
+export function TheatreBloomEffect({ ar = false }) {
   const { gl, scene, camera, size } = useThree();
   const sheet = useCurrentSheet();
 
@@ -34,6 +34,28 @@ export function TheatreBloomEffect() {
     composer.setSize(size.width, size.height);
     bloomPass.setSize(size.width, size.height);
   }, [composer, bloomPass, size.width, size.height]);
+
+  useEffect(() => {
+    // Keep AR camera feed visible under postprocessing by preserving alpha
+    const prevAutoClear = gl.autoClear;
+    const prevRenderPassClear = renderPass.clear;
+    const prevRenderToScreen = composer.renderToScreen;
+
+    if (ar) {
+      gl.autoClear = false;
+      renderPass.clear = false;
+      composer.renderToScreen = true;
+    } else {
+      renderPass.clear = true;
+      composer.renderToScreen = true;
+    }
+
+    return () => {
+      gl.autoClear = prevAutoClear;
+      renderPass.clear = prevRenderPassClear;
+      composer.renderToScreen = prevRenderToScreen;
+    };
+  }, [ar, gl, renderPass, composer]);
 
   useLayoutEffect(() => {
     if (!sheet) return undefined;

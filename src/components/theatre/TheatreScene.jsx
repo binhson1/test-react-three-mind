@@ -16,7 +16,7 @@ export function TheatreScene({ ar = false }) {
       <directionalLight position={[4, 8, 4]} intensity={1.2} />
 
       <TheatreAutoplay />
-      <TheatreBloomEffect />
+      <TheatreBloomEffect ar={ar} />
 
       <Suspense fallback={null}>
         <e.group theatreKey="spriteOngDong" position={[-1.2, 0.8, 0]}>
