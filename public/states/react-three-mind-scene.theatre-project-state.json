@@ -8,16 +8,6 @@
               "x": 0.0005,
               "y": 0.0005,
               "z": 0.0005
-            },
-            "position": {
-              "x": 0,
-              "y": 0,
-              "z": -2
-            },
-            "rotation": {
-              "x": 0,
-              "y": 1,
-              "z": 0
             }
           },
           "spriteOngDong": {
@@ -28,13 +18,11 @@
             },
             "position": {
               "x": 0.11006166521372716,
-              "y": 0.18999999999999895,
-              "z": 0.15522570501599156
+              "y": 0.45999999999999913,
+              "z": 0.005225705015991592
             },
             "rotation": {
-              "x": 0,
-              "y": 0,
-              "z": 0
+              "x": 0
             }
           },
           "01_22_ong_dong_frame": {
@@ -42,6 +30,69 @@
           },
           "sceneLoiBake_anim": {
             "clipIndex": 0
+          },
+          "sceneLoiBake_glow_mesh_0_0": {
+            "enabled": false,
+            "emissiveBoost": 10
+          },
+          "sceneLoiBake_glow_mesh_6_6": {
+            "enabled": true,
+            "emissiveBoost": 0,
+            "glowBoost": 9.9,
+            "blueBoost": 10,
+            "glowColor": {
+              "r": 0.023529411764705882,
+              "g": 0.11764705882352941,
+              "b": 0.2823529411764706,
+              "a": 1
+            },
+            "intensity": 10
+          },
+          "sceneLoiBake_glow_mesh_17_17": {
+            "enabled": false
+          },
+          "sceneLoiBake_glow_mesh_20_20": {
+            "enabled": false
+          },
+          "sceneLoiBake_glow_mesh_1_1": {
+            "enabled": false,
+            "emissiveBoost": 10
+          },
+          "sceneLoiBake_glow_mesh_2_2": {
+            "enabled": false,
+            "emissiveBoost": 10
+          },
+          "sceneLoiBake_glow_mesh_3_3": {
+            "enabled": false,
+            "emissiveBoost": 10
+          },
+          "sceneLoiBake_glow_mesh_4_4": {
+            "enabled": false,
+            "emissiveBoost": 10
+          },
+          "sceneLoiBake_glow_mesh_5_5": {
+            "emissiveBoost": 10,
+            "enabled": false
+          },
+          "sceneLoiBake_glow_mesh_15_15": {
+            "enabled": false,
+            "emissiveBoost": 10
+          },
+          "postproc_bloom": {
+            "threshold": 0.6399999999999997,
+            "strength": 0.5999999999999999
+          },
+          "sceneLoiBake_glow_mesh_12_12": {
+            "enabled": true,
+            "glowBoost": 9.399999999999997,
+            "blueBoost": 10,
+            "glowColor": {
+              "r": 1,
+              "g": 0.8392156862745098,
+              "b": 0,
+              "a": 1
+            },
+            "intensity": 2.1000000000000005
           }
         }
       },
@@ -60,7 +111,12 @@
                     "id": "K0XPkdd1rt",
                     "position": 0,
                     "connectedRight": true,
-                    "handles": [0.5, 1, 0.5, 0],
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
                     "value": 0,
                     "type": "bezier"
                   },
@@ -68,7 +124,12 @@
                     "id": "Ld6p0-3b9I",
                     "position": 4.967,
                     "connectedRight": true,
-                    "handles": [0.5, 1, 0.5, 0],
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
                     "value": 300
                   }
                 ]
@@ -88,7 +149,12 @@
                     "id": "bZumk20OXs",
                     "position": 0,
                     "connectedRight": true,
-                    "handles": [0.5, 1, 0.5, 0],
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
                     "value": 0,
                     "type": "bezier"
                   },
@@ -96,14 +162,24 @@
                     "id": "3BG5ItwSDW",
                     "position": 4.967,
                     "connectedRight": true,
-                    "handles": [0.5, 1, 0.5, 0],
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
                     "value": 8.109704331989533
                   },
                   {
                     "id": "7oMwDiP5YT",
                     "position": 5,
                     "connectedRight": true,
-                    "handles": [0.5, 1, 0.5, 0],
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
                     "value": 8.109704331989533
                   }
                 ]
@@ -112,6 +188,146 @@
             "trackIdByPropPath": {
               "[\"time\"]": "hJl701XCaV"
             }
+          },
+          "sceneLoiBake_glow_mesh_6_6": {
+            "trackData": {
+              "RG5u4Wj4XR": {
+                "type": "BasicKeyframedTrack",
+                "__debugName": "sceneLoiBake_glow_mesh_6_6:[\"emissiveBoost\"]",
+                "keyframes": [
+                  {
+                    "id": "jYMI8JOtNV",
+                    "position": 0,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "type": "bezier",
+                    "value": 10
+                  }
+                ]
+              },
+              "I88c7X9vj3": {
+                "type": "BasicKeyframedTrack",
+                "__debugName": "sceneLoiBake_glow_mesh_6_6:[\"glowBoost\"]",
+                "keyframes": []
+              },
+              "__itcSR-lS": {
+                "type": "BasicKeyframedTrack",
+                "__debugName": "sceneLoiBake_glow_mesh_6_6:[\"blueBoost\"]",
+                "keyframes": []
+              }
+            },
+            "trackIdByPropPath": {
+              "[\"emissiveBoost\"]": "RG5u4Wj4XR",
+              "[\"glowBoost\"]": "I88c7X9vj3",
+              "[\"blueBoost\"]": "__itcSR-lS"
+            }
+          },
+          "sceneLoiBake_glow_mesh_0_0": {
+            "trackData": {
+              "ijsmURvjmZ": {
+                "type": "BasicKeyframedTrack",
+                "__debugName": "sceneLoiBake_glow_mesh_0_0:[\"emissiveBoost\"]",
+                "keyframes": []
+              }
+            },
+            "trackIdByPropPath": {
+              "[\"emissiveBoost\"]": "ijsmURvjmZ"
+            }
+          },
+          "sceneLoiBake_glow_mesh_1_1": {
+            "trackData": {
+              "CVCMuBQ55E": {
+                "type": "BasicKeyframedTrack",
+                "__debugName": "sceneLoiBake_glow_mesh_1_1:[\"emissiveBoost\"]",
+                "keyframes": []
+              }
+            },
+            "trackIdByPropPath": {
+              "[\"emissiveBoost\"]": "CVCMuBQ55E"
+            }
+          },
+          "sceneLoiBake_glow_mesh_2_2": {
+            "trackData": {
+              "E3bzdQQZ-u": {
+                "type": "BasicKeyframedTrack",
+                "__debugName": "sceneLoiBake_glow_mesh_2_2:[\"emissiveBoost\"]",
+                "keyframes": []
+              }
+            },
+            "trackIdByPropPath": {
+              "[\"emissiveBoost\"]": "E3bzdQQZ-u"
+            }
+          },
+          "sceneLoiBake_glow_mesh_3_3": {
+            "trackData": {
+              "aAIfwgRq_N": {
+                "type": "BasicKeyframedTrack",
+                "__debugName": "sceneLoiBake_glow_mesh_3_3:[\"emissiveBoost\"]",
+                "keyframes": []
+              }
+            },
+            "trackIdByPropPath": {
+              "[\"emissiveBoost\"]": "aAIfwgRq_N"
+            }
+          },
+          "sceneLoiBake_glow_mesh_4_4": {
+            "trackData": {
+              "Zx1mEimUuS": {
+                "type": "BasicKeyframedTrack",
+                "__debugName": "sceneLoiBake_glow_mesh_4_4:[\"emissiveBoost\"]",
+                "keyframes": []
+              }
+            },
+            "trackIdByPropPath": {
+              "[\"emissiveBoost\"]": "Zx1mEimUuS"
+            }
+          },
+          "sceneLoiBake_glow_mesh_5_5": {
+            "trackData": {
+              "P5vZHh7XX8": {
+                "type": "BasicKeyframedTrack",
+                "__debugName": "sceneLoiBake_glow_mesh_5_5:[\"emissiveBoost\"]",
+                "keyframes": []
+              }
+            },
+            "trackIdByPropPath": {
+              "[\"emissiveBoost\"]": "P5vZHh7XX8"
+            }
+          },
+          "sceneLoiBake_glow_mesh_15_15": {
+            "trackData": {
+              "kHJnSu7CJQ": {
+                "type": "BasicKeyframedTrack",
+                "__debugName": "sceneLoiBake_glow_mesh_15_15:[\"emissiveBoost\"]",
+                "keyframes": []
+              }
+            },
+            "trackIdByPropPath": {
+              "[\"emissiveBoost\"]": "kHJnSu7CJQ"
+            }
+          },
+          "sceneLoiBake_glow_mesh_12_12": {
+            "trackData": {
+              "6DvZdzePbo": {
+                "type": "BasicKeyframedTrack",
+                "__debugName": "sceneLoiBake_glow_mesh_12_12:[\"glowBoost\"]",
+                "keyframes": []
+              },
+              "efDt5IvvkB": {
+                "type": "BasicKeyframedTrack",
+                "__debugName": "sceneLoiBake_glow_mesh_12_12:[\"blueBoost\"]",
+                "keyframes": []
+              }
+            },
+            "trackIdByPropPath": {
+              "[\"glowBoost\"]": "6DvZdzePbo",
+              "[\"blueBoost\"]": "efDt5IvvkB"
+            }
           }
         }
       }
@@ -119,6 +335,10 @@
   },
   "definitionVersion": "0.4.0",
   "revisionHistory": [
+    "YmRqjRE7VQ3V0rMQ",
+    "Enrqso-eXVeKLTPP",
+    "WIcRhOTPo-kvAMuu",
+    "q0BLYY35amY0zcPY",
     "fIvZnB2lr5g_SD91",
     "Tx4pJynrvAavMrAN",
     "DwqvgO2R1PkWHiY2",

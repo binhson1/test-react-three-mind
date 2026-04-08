@@ -116,29 +116,55 @@ export function SceneLoiModel() {
       const originals = materials.map((mat) => ({
         mat,
         toneMapped: mat.toneMapped,
+        color: mat.color?.clone?.(),
+        emissive: mat.emissive?.clone?.(),
         emissiveIntensity:
-          typeof mat.emissiveIntensity === "number" ? mat.emissiveIntensity : 0,
+          typeof mat.emissiveIntensity === "number"
+            ? mat.emissiveIntensity
+            : undefined,
       }));
 
       const glowObj = sheet.object(key, {
         enabled: t.boolean(false, { label: "Glow enabled" }),
-        emissiveBoost: t.number(3, {
-          label: "Glow boost",
+        glowColor: t.rgba(
+          { r: 0.2, g: 0.55, b: 1, a: 1 },
+          { label: "Glow color" },
+        ),
+        intensity: t.number(3, {
+          label: "Intensity",
           range: [0, 10],
           nudgeMultiplier: 0.1,
         }),
       });
 
       const applyGlow = (v) => {
-        originals.forEach(({ mat, toneMapped, emissiveIntensity }) => {
-          mat.toneMapped = true;
-          if (typeof mat.emissiveIntensity === "number") {
-            mat.emissiveIntensity = v.enabled ? v.emissiveBoost : emissiveIntensity;
-          } else {
-            mat.toneMapped = toneMapped;
-          }
-          mat.needsUpdate = true;
-        });
+        originals.forEach(
+          ({ mat, toneMapped, color, emissive, emissiveIntensity }) => {
+            if (v.enabled) {
+              mat.toneMapped = true;
+              const { r, g, b } = v.glowColor;
+              const s = v.intensity;
+              if (mat.emissive) {
+                if (typeof mat.emissiveIntensity === "number") {
+                  mat.emissive.setRGB(r, g, b);
+                  mat.emissiveIntensity = s;
+                } else {
+                  mat.emissive.setRGB(r * s, g * s, b * s);
+                }
+              } else if (mat.color) {
+                mat.color.setRGB(r * s, g * s, b * s);
+              }
+            } else {
+              mat.toneMapped = toneMapped;
+              if (color && mat.color) mat.color.copy(color);
+              if (emissive && mat.emissive) mat.emissive.copy(emissive);
+              if (typeof emissiveIntensity === "number") {
+                mat.emissiveIntensity = emissiveIntensity;
+              }
+            }
+            mat.needsUpdate = true;
+          },
+        );
       };
 
       applyGlow(glowObj.value);
@@ -146,13 +172,20 @@ export function SceneLoiModel() {
 
       disposers.push(() => {
         unsub();
-        originals.forEach(({ mat, toneMapped, emissiveIntensity }) => {
-          mat.toneMapped = toneMapped;
-          if (typeof mat.emissiveIntensity === "number") {
-            mat.emissiveIntensity = emissiveIntensity;
-          }
-          mat.needsUpdate = true;
-        });
+        originals.forEach(
+          ({ mat, toneMapped, color, emissive, emissiveIntensity }) => {
+            mat.toneMapped = toneMapped;
+            if (color && mat.color) mat.color.copy(color);
+            if (emissive && mat.emissive) mat.emissive.copy(emissive);
+            if (typeof mat.emissiveIntensity === "number") {
+              mat.emissiveIntensity =
+                typeof emissiveIntensity === "number"
+                  ? emissiveIntensity
+                  : mat.emissiveIntensity;
+            }
+            mat.needsUpdate = true;
+          },
+        );
         sheet.detachObject(key);
       });
     });

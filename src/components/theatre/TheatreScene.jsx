@@ -15,7 +15,7 @@ export function TheatreScene({ ar = false }) {
       <ambientLight intensity={0.6} />
       <directionalLight position={[4, 8, 4]} intensity={1.2} />
 
-      {/* <TheatreAutoplay /> */}
+      <TheatreAutoplay />
       <TheatreBloomEffect />
 
       <Suspense fallback={null}>
