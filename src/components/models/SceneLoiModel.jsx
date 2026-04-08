@@ -141,7 +141,8 @@ export function SceneLoiModel() {
         originals.forEach(
           ({ mat, toneMapped, color, emissive, emissiveIntensity }) => {
             if (v.enabled) {
-              mat.toneMapped = true;
+              // Keep emissive contribution in HDR range for threshold-based selective bloom.
+              mat.toneMapped = false;
               const { r, g, b } = v.glowColor;
               const s = v.intensity;
               if (mat.emissive) {

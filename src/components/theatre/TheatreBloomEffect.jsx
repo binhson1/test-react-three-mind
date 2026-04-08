@@ -1,89 +1,52 @@
-/* eslint-disable react/no-unknown-property -- three postprocessing classes */
-import { useEffect, useMemo, useLayoutEffect } from "react";
-import { useThree, useFrame } from "@react-three/fiber";
+/* eslint-disable react/no-unknown-property -- postprocessing components */
+import { useLayoutEffect, useMemo, useState } from "react";
 import { useCurrentSheet } from "@theatre/r3f";
 import { types as t } from "@theatre/core";
-import * as THREE from "three";
-import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
-import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
-import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
+import { EffectComposer, Bloom } from "@react-three/postprocessing";
 
 const BLOOM_THEATRE_KEY = "postproc_bloom";
 
 export function TheatreBloomEffect({ ar = false }) {
-  const { gl, scene, camera, size } = useThree();
   const sheet = useCurrentSheet();
-
-  const composer = useMemo(() => new EffectComposer(gl), [gl]);
-  const renderPass = useMemo(() => new RenderPass(scene, camera), [scene, camera]);
-  const bloomPass = useMemo(
-    () => new UnrealBloomPass(new THREE.Vector2(size.width, size.height), 1, 0.3, 0.8),
-    [size.width, size.height]
-  );
-
-  useLayoutEffect(() => {
-    composer.addPass(renderPass);
-    composer.addPass(bloomPass);
-    return () => {
-      composer.removePass(renderPass);
-      composer.removePass(bloomPass);
-    };
-  }, [composer, renderPass, bloomPass]);
-
-  useEffect(() => {
-    composer.setSize(size.width, size.height);
-    bloomPass.setSize(size.width, size.height);
-  }, [composer, bloomPass, size.width, size.height]);
-
-  useEffect(() => {
-    // Keep AR camera feed visible under postprocessing by preserving alpha
-    const prevAutoClear = gl.autoClear;
-    const prevRenderPassClear = renderPass.clear;
-    const prevRenderToScreen = composer.renderToScreen;
-
-    if (ar) {
-      gl.autoClear = false;
-      renderPass.clear = false;
-      composer.renderToScreen = true;
-    } else {
-      renderPass.clear = true;
-      composer.renderToScreen = true;
-    }
-
-    return () => {
-      gl.autoClear = prevAutoClear;
-      renderPass.clear = prevRenderPassClear;
-      composer.renderToScreen = prevRenderToScreen;
-    };
-  }, [ar, gl, renderPass, composer]);
+  const [bloomState, setBloomState] = useState({
+    enabled: true,
+    intensity: 1.1,
+    luminanceThreshold: 1,
+    luminanceSmoothing: 0.08,
+    mipmapBlur: true,
+  });
 
   useLayoutEffect(() => {
     if (!sheet) return undefined;
 
     const bloomObj = sheet.object(BLOOM_THEATRE_KEY, {
       enabled: t.boolean(true, { label: "Bloom enabled" }),
-      strength: t.number(1.1, {
-        label: "Bloom strength",
-        range: [0, 3],
+      intensity: t.number(1.1, {
+        label: "Bloom intensity",
+        range: [0, 5],
         nudgeMultiplier: 0.05,
       }),
-      radius: t.number(0.3, {
-        label: "Bloom radius",
-        range: [0, 1.5],
-        nudgeMultiplier: 0.02,
-      }),
-      threshold: t.number(0.8, {
-        label: "Bloom threshold",
+      threshold: t.number(1, {
+        label: "Luminance threshold",
         range: [0, 2],
         nudgeMultiplier: 0.02,
       }),
+      smoothing: t.number(0.08, {
+        label: "Luminance smoothing",
+        range: [0, 1],
+        nudgeMultiplier: 0.02,
+      }),
+      mipmapBlur: t.boolean(true, { label: "Mipmap blur" }),
     });
 
     const applyBloom = (v) => {
-      bloomPass.enabled = v.enabled;
-      bloomPass.strength = v.strength;
-      bloomPass.radius = v.radius;
-      bloomPass.threshold = v.threshold;
+      setBloomState({
+        enabled: v.enabled,
+        intensity: v.intensity,
+        luminanceThreshold: v.threshold,
+        luminanceSmoothing: v.smoothing,
+        mipmapBlur: v.mipmapBlur,
+      });
     };
 
     applyBloom(bloomObj.value);
@@ -93,11 +56,22 @@ export function TheatreBloomEffect({ ar = false }) {
       unsub();
       sheet.detachObject(BLOOM_THEATRE_KEY);
     };
-  }, [sheet, bloomPass]);
+  }, [sheet]);
 
-  useFrame(() => {
-    composer.render();
-  }, 1);
+  const multisampling = useMemo(() => (ar ? 0 : 4), [ar]);
 
-  return null;
+  return (
+    <EffectComposer
+      enabled={bloomState.enabled}
+      multisampling={multisampling}
+      disableNormalPass
+    >
+      <Bloom
+        intensity={bloomState.intensity}
+        luminanceThreshold={bloomState.luminanceThreshold}
+        luminanceSmoothing={bloomState.luminanceSmoothing}
+        mipmapBlur={bloomState.mipmapBlur}
+      />
+    </EffectComposer>
+  );
 }
